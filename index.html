@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painted Black — Google Ads Plan of Action</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07070F;
+  --bg2:#0D0D1A;
+  --bg3:#111120;
+  --surface:rgba(255,255,255,0.04);
+  --surface2:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.08);
+  --border2:rgba(255,255,255,0.14);
+  --red:#C0392B;
+  --red-dim:rgba(192,57,43,0.15);
+  --orange:#D4690F;
+  --orange-dim:rgba(212,105,15,0.15);
+  --green:#1A7A3F;
+  --green-dim:rgba(26,122,63,0.15);
+  --gold:#D4B98A;
+  --gold-dim:rgba(212,185,138,0.12);
+  --text:#EDE9E3;
+  --muted:rgba(237,233,227,0.5);
+  --faint:rgba(237,233,227,0.25);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:400;line-height:1.7;overflow-x:hidden}
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 48px;
+  background:rgba(7,7,15,0.8);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  transition:background 0.3s;
+}
+.nav-brand{font-family:'Playfair Display',serif;font-size:13px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a.active{color:var(--gold)}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--red);z-index:200;width:0%;transition:width 0.1s linear}
+
+/* HERO */
+#hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 48px 80px;
+}
+.hero-eyebrow{
+  font-size:11px;letter-spacing:0.4em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;
+  display:flex;align-items:center;gap:16px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:var(--gold-dim)}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(192,57,43,0.4);
+  background:var(--red-dim);
+  padding:6px 14px;border-radius:2px;
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#e87b71;
+  margin-bottom:40px;
+}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#C0392B;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+h1.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,8vw,96px);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-0.02em;
+  color:var(--text);
+  margin-bottom:8px;
+}
+h1.hero-title span{color:var(--red)}
+.hero-sub{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(18px,3vw,26px);
+  font-weight:400;
+  font-style:italic;
+  color:var(--muted);
+  margin-bottom:48px;
+}
+.hero-meta{
+  display:flex;gap:32px;align-items:center;justify-content:center;flex-wrap:wrap;
+  margin-bottom:64px;
+}
+.meta-pill{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--faint);
+}
+.meta-pill strong{color:var(--muted)}
+.meta-sep{color:var(--faint);font-size:10px}
+.scroll-hint{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--faint);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  animation:float 2.5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.scroll-hint .arrow{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--faint))}
+
+/* SECTIONS */
+section{position:relative;z-index:1;padding:100px 48px}
+.section-inner{max-width:1080px;margin:0 auto}
+.section-label{
+  font-size:10px;letter-spacing:0.4em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-label::after{content:'';flex:1;max-width:40px;height:1px;background:var(--gold-dim)}
+h2.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,4vw,48px);
+  font-weight:700;line-height:1.1;
+  color:var(--text);
+  margin-bottom:20px;
+}
+.section-body{font-size:16px;color:var(--muted);max-width:680px;line-height:1.8}
+
+/* EXEC SUMMARY */
+#summary{background:var(--bg2)}
+.summary-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--red);
+  padding:40px 48px;
+  margin-top:48px;
+  border-radius:2px;
+}
+.summary-card p{font-size:16px;color:var(--muted);line-height:1.9;margin-bottom:16px}
+.summary-card p:last-child{margin-bottom:0}
+.summary-card p strong{color:var(--text);font-weight:500}
+
+/* FINDINGS */
+#findings{background:var(--bg)}
+.findings-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:16px;
+  margin-top:48px;
+}
+.finding-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:24px 28px;
+  border-radius:2px;
+  opacity:0;transform:translateY(24px);
+  transition:opacity 0.5s,transform 0.5s,border-color 0.2s;
+}
+.finding-card:hover{border-color:var(--border2)}
+.finding-card.visible{opacity:1;transform:translateY(0)}
+.finding-badge{
+  display:inline-block;
+  font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;
+  padding:4px 10px;border-radius:2px;margin-bottom:14px;
+}
+.badge-critical{background:rgba(192,57,43,0.2);color:#e87b71;border:1px solid rgba(192,57,43,0.3)}
+.badge-high{background:rgba(212,105,15,0.2);color:#e8a06a;border:1px solid rgba(212,105,15,0.3)}
+.badge-medium{background:rgba(180,150,40,0.15);color:#d4b96a;border:1px solid rgba(180,150,40,0.25)}
+.badge-low{background:rgba(120,120,140,0.15);color:#888899;border:1px solid rgba(120,120,140,0.2)}
+.finding-title{font-size:15px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.4}
+.finding-detail{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* PHASE SECTIONS */
+.phase-section{position:relative;overflow:hidden}
+.phase-section.p1{background:var(--bg2)}
+.phase-section.p2{background:var(--bg3)}
+.phase-section.p3{background:var(--bg2)}
+.phase-watermark{
+  position:absolute;top:-0.1em;right:-0.05em;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(180px,25vw,320px);
+  font-weight:900;line-height:1;
+  color:rgba(255,255,255,0.025);
+  pointer-events:none;user-select:none;
+  z-index:0;
+}
+.phase-inner{position:relative;z-index:1}
+.phase-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:32px;flex-wrap:wrap;
+  margin-bottom:56px;
+  padding-bottom:40px;
+  border-bottom:1px solid var(--border);
+}
+.phase-num{
+  font-family:'Playfair Display',serif;
+  font-size:14px;font-weight:700;
+  letter-spacing:0.3em;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.p1 .phase-num{color:var(--red)}
+.p2 .phase-num{color:var(--orange)}
+.p3 .phase-num{color:var(--green)}
+.phase-title-block h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,4vw,42px);
+  font-weight:700;color:var(--text);line-height:1.1;
+  margin-bottom:10px;
+}
+.phase-desc{font-size:15px;color:var(--muted);max-width:560px;line-height:1.7}
+.phase-timeline{
+  text-align:right;flex-shrink:0;
+}
+.timeline-label{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.timeline-value{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:700;
+}
+.p1 .timeline-value{color:var(--red)}
+.p2 .timeline-value{color:var(--orange)}
+.p3 .timeline-value{color:var(--green)}
+
+/* TASK CARDS */
+.tasks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.task-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:2px;padding:28px 32px;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.5s,transform 0.5s,border-color 0.2s;
+}
+.task-card:hover{border-color:var(--border2)}
+.task-card.visible{opacity:1;transform:translateY(0)}
+.task-num{
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  font-weight:600;margin-bottom:12px;
+}
+.p1 .task-num{color:rgba(192,57,43,0.7)}
+.p2 .task-num{color:rgba(212,105,15,0.7)}
+.p3 .task-num{color:rgba(26,122,63,0.7)}
+.task-title{font-size:16px;font-weight:500;color:var(--text);margin-bottom:16px;line-height:1.4}
+.task-bullets{list-style:none;display:flex;flex-direction:column;gap:8px}
+.task-bullets li{
+  font-size:13px;color:var(--muted);line-height:1.6;
+  padding-left:14px;position:relative;
+}
+.task-bullets li::before{
+  content:'';position:absolute;left:0;top:8px;
+  width:4px;height:4px;border-radius:50%;
+}
+.p1 .task-bullets li::before{background:var(--red)}
+.p2 .task-bullets li::before{background:var(--orange)}
+.p3 .task-bullets li::before{background:var(--green)}
+.task-bullets li strong{color:var(--text);font-weight:500}
+
+/* NOTE CALLOUT */
+.note-callout{
+  display:flex;align-items:flex-start;gap:16px;
+  background:rgba(212,105,15,0.07);
+  border:1px solid rgba(212,105,15,0.2);
+  border-left:3px solid var(--orange);
+  padding:20px 24px;border-radius:2px;
+  margin-top:40px;
+}
+.note-label{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--orange);font-weight:600;flex-shrink:0;padding-top:2px;
+}
+.note-text{font-size:14px;color:var(--muted);line-height:1.7}
+
+/* TIMELINE SECTION */
+#timeline{background:var(--bg)}
+.timeline-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  margin-top:48px;
+  border:1px solid var(--border);border-radius:2px;overflow:hidden;
+}
+.timeline-col{padding:36px 32px;background:var(--surface)}
+.timeline-col:nth-child(2){border-left:1px solid var(--border);border-right:1px solid var(--border)}
+.tl-phase{
+  font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
+  font-weight:600;margin-bottom:10px;
+}
+.tl-p1 .tl-phase{color:var(--red)}
+.tl-p2 .tl-phase{color:var(--orange)}
+.tl-p3 .tl-phase{color:var(--green)}
+.tl-title{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px;
+}
+.tl-time{
+  font-size:12px;color:var(--faint);margin-bottom:20px;
+  letter-spacing:0.06em;
+}
+.tl-items{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.tl-items li{font-size:13px;color:var(--muted);padding-left:12px;position:relative;line-height:1.5}
+.tl-items li::before{content:'—';position:absolute;left:0;color:var(--faint);font-size:11px;top:2px}
+.tl-owner{
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--faint);padding-top:16px;border-top:1px solid var(--border);
+}
+.tl-owner span{color:var(--muted);font-weight:500}
+
+/* FOOTER */
+footer{
+  position:relative;z-index:1;
+  padding:48px;text-align:center;
+  border-top:1px solid var(--border);
+  background:var(--bg);
+}
+.footer-brand{
+  font-family:'Playfair Display',serif;
+  font-size:12px;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:8px;
+}
+.footer-meta{font-size:12px;color:var(--faint)}
+
+/* ANIMATIONS */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;animation:fadeInUp 0.8s ease forwards}
+.fade-in-1{animation-delay:0.1s}
+.fade-in-2{animation-delay:0.3s}
+.fade-in-3{animation-delay:0.5s}
+.fade-in-4{animation-delay:0.7s}
+.fade-in-5{animation-delay:0.9s}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:14px 24px}
+  .nav-links{display:none}
+  section{padding:72px 24px}
+  .phase-header{flex-direction:column}
+  .phase-timeline{text-align:left}
+  .timeline-grid{grid-template-columns:1fr}
+  .timeline-col:nth-child(2){border-left:none;border-right:none;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <div class="nav-brand">Painted Black — Google Ads POA</div>
+  <ul class="nav-links">
+    <li><a href="#summary">Overview</a></li>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#phase1">Phase 1</a></li>
+    <li><a href="#phase2">Phase 2</a></li>
+    <li><a href="#phase3">Phase 3</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Account 617-879-6307 · Tirana, Albania</div>
+  <div class="hero-badge fade-in fade-in-1">
+    <span class="dot"></span>
+    Audit Complete — Action Required
+  </div>
+  <h1 class="hero-title fade-in fade-in-2">PLAN OF<br><span>ACTION</span></h1>
+  <p class="hero-sub fade-in fade-in-3">Google Ads Recovery & Rebuild — June 2026</p>
+  <div class="hero-meta fade-in fade-in-4">
+    <div class="meta-pill"><strong>3</strong> Phases</div>
+    <div class="meta-sep">·</div>
+    <div class="meta-pill"><strong>2</strong> Campaigns</div>
+    <div class="meta-sep">·</div>
+    <div class="meta-pill"><strong>14</strong> Broken conversion actions</div>
+    <div class="meta-sep">·</div>
+    <div class="meta-pill"><strong>1</strong> Missing base tag</div>
+  </div>
+  <div class="scroll-hint fade-in fade-in-5">
+    <div class="arrow"></div>
+    Scroll to review
+  </div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section id="summary">
+  <div class="section-inner">
+    <div class="section-label">Executive Summary</div>
+    <h2 class="section-title">What the audit found</h2>
+    <div class="summary-card">
+      <p>The Google Ads audit for account <strong>617-879-6307 (Painted Black)</strong> revealed a foundational tracking failure that has rendered all historical conversion data unreliable. The <strong>Google Ads base tag was never installed</strong> on the Wix website — meaning the account has been optimizing against phantom data since launch.</p>
+      <p>In addition, <strong>14 of 16 configured conversion actions</strong> are broken, misconfigured, or belong to unrelated businesses sharing the account (Bergamot Media, Senstylable). Of two active campaigns, the Smart Campaign spent <strong>$128.87 with zero verified conversions</strong>, while the Performance Max Local campaign recorded 136 conversions at a $1.62 CPA — figures that cannot be trusted without a working tag.</p>
+      <p>This Plan of Action addresses every finding in three sequential phases: foundation & tracking repair, campaign overhaul, and ongoing optimization. <strong>Phases must be executed in order.</strong> Phase 2 work is only meaningful once Phase 1 is verified complete.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINDINGS -->
+<section id="findings">
+  <div class="section-inner">
+    <div class="section-label">Audit Findings</div>
+    <h2 class="section-title">Issues identified</h2>
+    <div class="findings-grid">
+      <div class="finding-card" data-delay="0">
+        <div class="finding-badge badge-critical">Critical</div>
+        <div class="finding-title">Base tag not installed on Wix</div>
+        <div class="finding-detail">Zero valid tag-based conversion data across the entire account. All reported conversion figures are unverified.</div>
+      </div>
+      <div class="finding-card" data-delay="1">
+        <div class="finding-badge badge-critical">Critical</div>
+        <div class="finding-title">14 of 16 conversion actions broken</div>
+        <div class="finding-detail">Belong to Bergamot Media or Senstylable, are inactive duplicates, or are misconfigured for a restaurant objective.</div>
+      </div>
+      <div class="finding-card" data-delay="2">
+        <div class="finding-badge badge-high">High</div>
+        <div class="finding-title">Smart Campaign — zero conversions</div>
+        <div class="finding-detail">$128.87 spent with no primary conversion events recorded. Smart Campaigns offer no keyword, bid, or audience control.</div>
+      </div>
+      <div class="finding-card" data-delay="3">
+        <div class="finding-badge badge-high">High</div>
+        <div class="finding-title">No GA4 property linked</div>
+        <div class="finding-detail">No audience data, remarketing lists, or funnel visibility. Smart bidding is running entirely without behavioral signals.</div>
+      </div>
+      <div class="finding-card" data-delay="4">
+        <div class="finding-badge badge-high">High</div>
+        <div class="finding-title">Alcohol policy violation</div>
+        <div class="finding-detail">Campaign 2 flagged as "Eligible (Limited)" due to alcohol-related content in ad copy or landing page. Restricts delivery reach.</div>
+      </div>
+      <div class="finding-card" data-delay="5">
+        <div class="finding-badge badge-medium">Medium</div>
+        <div class="finding-title">Account shared across 3 businesses</div>
+        <div class="finding-detail">Painted Black, Bergamot Media, and Senstylable in one account. Contaminated audience data and confused smart bidding signals.</div>
+      </div>
+      <div class="finding-card" data-delay="6">
+        <div class="finding-badge badge-low">Low</div>
+        <div class="finding-title">Campaign 2 self-paused by client</div>
+        <div class="finding-detail">No second active campaign running at time of audit. PMax Local is the sole active campaign.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 1 -->
+<section id="phase1" class="phase-section p1">
+  <div class="phase-watermark">01</div>
+  <div class="section-inner phase-inner">
+    <div class="phase-header">
+      <div class="phase-title-block">
+        <div class="phase-num">Phase 01 — Foundation</div>
+        <h2>Tracking & Base Fix</h2>
+        <p class="phase-desc">Nothing in Phase 2 or 3 should be actioned until this phase is complete. Operating campaigns without a working tag means smart bidding trains on bad data and every optimization is made blind.</p>
+      </div>
+
+    </div>
+    <div class="tasks-grid">
+      <div class="task-card p1" data-delay="0">
+        <div class="task-num">Task 1.1</div>
+        <div class="task-title">Install the Google Ads base tag on Wix</div>
+        <ul class="task-bullets">
+          <li>Go to Google Ads → Tools → Conversions → Google tag — copy your Tag ID (AW-XXXXXXXXX)</li>
+          <li>In Wix: Settings → Custom Code → Add Code → paste in &lt;head&gt; on all pages</li>
+          <li>Or deploy via Google Tag Manager for cleaner long-term management</li>
+          <li>Verify using Chrome DevTools → Network tab → filter for "googleads" or "gtag"</li>
+          <li>Allow 24–48 hours for Google to confirm tag is active in account</li>
+        </ul>
+      </div>
+      <div class="task-card p1" data-delay="1">
+        <div class="task-num">Task 1.2</div>
+        <div class="task-title">Rebuild conversion actions from scratch</div>
+        <ul class="task-bullets">
+          <li>Pause all 14 broken/foreign conversion actions (do not delete — preserve historical view)</li>
+          <li>Create <strong>3 clean conversion actions</strong> for Painted Black: Directions click, Reservation intent (call/link/tap), Menu engagement (secondary)</li>
+          <li>Set counting method to "One" per conversion for reservation/lead goals</li>
+          <li>Attribution window: 7-day click, 1-day view — appropriate for restaurant discovery intent</li>
+        </ul>
+      </div>
+      <div class="task-card p1" data-delay="2">
+        <div class="task-num">Task 1.3</div>
+        <div class="task-title">Link GA4 to Google Ads</div>
+        <ul class="task-bullets">
+          <li>Create a GA4 property for paintedblack.club if one does not exist</li>
+          <li>Install via Wix native integration (Settings → Integrations → Google Analytics) or GTM</li>
+          <li>In Google Ads: Tools → Linked Accounts → Google Analytics → link the GA4 property</li>
+          <li>Enable Google signals for audience features</li>
+          <li>After 30 days, GA4 audiences can power remarketing and bidding signal improvements</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2 -->
+<section id="phase2" class="phase-section p2">
+  <div class="phase-watermark">02</div>
+  <div class="section-inner phase-inner">
+    <div class="phase-header">
+      <div class="phase-title-block">
+        <div class="phase-num">Phase 02 — Rebuild</div>
+        <h2>Campaign Overhaul</h2>
+        <p class="phase-desc">Phase 2 begins only after the base tag is verified active and at least 2 of 3 new conversion actions are confirmed firing. Starting Phase 2 before Phase 1 means smart bidding continues training on corrupted data.</p>
+      </div>
+
+    </div>
+    <div class="tasks-grid">
+      <div class="task-card p2" data-delay="0">
+        <div class="task-num">Task 2.1</div>
+        <div class="task-title">Pause Smart Campaign → Launch Standard Search</div>
+        <ul class="task-bullets">
+          <li>Pause the Smart Campaign — $128.87 spent with zero verified conversions</li>
+          <li>Replace with a Standard Search campaign targeting reservation-intent keywords</li>
+          <li>Core keywords: "restaurant in tirana", "italian restaurant tirana", "tirana dinner", "best restaurants tirana"</li>
+          <li>Use exact match and phrase match initially — broad match too unpredictable for single-location</li>
+          <li>Set bidding to Maximize Clicks first — switch to Target CPA once 30+ conversions recorded</li>
+        </ul>
+      </div>
+      <div class="task-card p2" data-delay="1">
+        <div class="task-num">Task 2.2</div>
+        <div class="task-title">Performance Max Local — retain with fixes</div>
+        <ul class="task-bullets">
+          <li>Keep paused until base tag is verified — then re-enable</li>
+          <li>Reassign campaign to optimize toward new clean conversion actions (Directions, Reservations)</li>
+          <li>Upload 3–5 high-quality restaurant photos as image assets (food, interior, ambience)</li>
+          <li>Add minimum 5 headline and 5 description variants to asset group</li>
+          <li>Review auto-targeting to exclude irrelevant categories</li>
+        </ul>
+      </div>
+      <div class="task-card p2" data-delay="2">
+        <div class="task-num">Task 2.3</div>
+        <div class="task-title">Resolve alcohol policy violation</div>
+        <ul class="task-bullets">
+          <li>Review all ad copy for references to wine, cocktails, beer, spirits, or liquor</li>
+          <li>Remove or soften alcohol references in headlines, descriptions, and site link extensions</li>
+          <li>If the menu page is landing page and features drinks prominently, redirect to a food-focused page</li>
+          <li>Submit for review — typically clears within 1–3 business days once changes are made</li>
+        </ul>
+      </div>
+      <div class="task-card p2" data-delay="3">
+        <div class="task-num">Task 2.4</div>
+        <div class="task-title">Landing page conversion audit</div>
+        <ul class="task-bullets">
+          <li>Ensure paintedblack.club has a clear primary CTA above the fold — reservation link or phone number</li>
+          <li>Test page load speed on mobile using Google PageSpeed Insights — target under 3 seconds</li>
+          <li>Walk through the full reservation flow on mobile to confirm it functions end-to-end</li>
+          <li>Add click tracking on the reservation button so it can fire a conversion event</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note-callout">
+      <div class="note-label">Note</div>
+      <div class="note-text">Phase 2 campaign work cannot begin until Phase 1 tag installation is confirmed verified in the Google Ads UI. Launching optimized campaigns against an untagged site restarts the data corruption problem from day one.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3 -->
+<section id="phase3" class="phase-section p3">
+  <div class="phase-watermark">03</div>
+  <div class="section-inner phase-inner">
+    <div class="phase-header">
+      <div class="phase-title-block">
+        <div class="phase-num">Phase 03 — Optimize</div>
+        <h2>Scale & Refine</h2>
+        <p class="phase-desc">Phase 3 activates once clean conversion data has been collecting for at least 2–3 weeks. All optimization decisions must be based on verified post-fix data — not pre-fix historical figures from the broken account state.</p>
+      </div>
+
+    </div>
+    <div class="tasks-grid">
+      <div class="task-card p3" data-delay="0">
+        <div class="task-num">Task 3.1</div>
+        <div class="task-title">Switch bidding to Target CPA</div>
+        <ul class="task-bullets">
+          <li>Once Search campaign has 30+ conversions in a 30-day window, switch from Maximize Clicks to Target CPA</li>
+          <li>Set initial Target CPA at 150–200% of the current average CPA — then tighten by 10% every 2 weeks</li>
+          <li>Apply same strategy to PMax Local once conversion actions are verified clean</li>
+          <li>Never switch bidding strategies during the 1–2 week data accumulation period — it resets learning</li>
+        </ul>
+      </div>
+      <div class="task-card p3" data-delay="1">
+        <div class="task-num">Task 3.2</div>
+        <div class="task-title">Search term hygiene & negative keywords</div>
+        <ul class="task-bullets">
+          <li>After 2 weeks of Search campaign data, download the Search Terms report</li>
+          <li>Add irrelevant or low-intent terms to a shared negative keyword list</li>
+          <li>Immediate negatives: job listings, recipes, cooking tutorials, competitor brand names</li>
+          <li>Review weekly for the first 6 weeks, then bi-weekly</li>
+        </ul>
+      </div>
+      <div class="task-card p3" data-delay="2">
+        <div class="task-num">Task 3.3</div>
+        <div class="task-title">GA4 audience activation</div>
+        <ul class="task-bullets">
+          <li>Once GA4 has 30 days of data, build remarketing audiences: site visitors (last 30 days), menu viewers, engaged sessions &gt; 90 seconds</li>
+          <li>Import audiences into Google Ads for RLSA bid adjustments on Search campaigns</li>
+          <li>Apply +30% bid adjustment for people who previously visited and are searching again</li>
+          <li>Build a "high-intent visitor" exclusion from Display campaigns to prevent wasted retargeting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-inner">
+    <div class="section-label">Summary</div>
+    <h2 class="section-title">Full timeline at a glance</h2>
+    <div class="timeline-grid">
+      <div class="timeline-col tl-p1">
+        <div class="tl-phase">Phase 01</div>
+        <div class="tl-title">Foundation</div>
+        
+        <ul class="tl-items">
+          <li>Install base tag on Wix website</li>
+          <li>Rebuild 3 clean conversion actions</li>
+          <li>Link GA4 to Google Ads</li>
+          <li>Pause all non-Painted-Black activity</li>
+        </ul>
+        <div class="tl-owner">Owner — <span>Client + Agency</span></div>
+      </div>
+      <div class="timeline-col tl-p2">
+        <div class="tl-phase">Phase 02</div>
+        <div class="tl-title">Rebuild</div>
+        
+        <ul class="tl-items">
+          <li>Pause Smart Campaign</li>
+          <li>Launch Standard Search campaign</li>
+          <li>Fix PMax Local asset groups</li>
+          <li>Resolve alcohol policy violation</li>
+        </ul>
+        <div class="tl-owner">Owner — <span>Agency</span></div>
+      </div>
+      <div class="timeline-col tl-p3">
+        <div class="tl-phase">Phase 03</div>
+        <div class="tl-title">Optimize</div>
+        
+        <ul class="tl-items">
+          <li>Switch to Target CPA bidding</li>
+          <li>Build negative keyword list</li>
+          <li>GA4 audience activation + RLSA</li>
+          <li>Ongoing monthly reporting</li>
+        </ul>
+        <div class="tl-owner">Owner — <span>Agency</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Painted Black · Google Ads Plan of Action · June 2026</div>
+  <div class="footer-meta">Account 617-879-6307 · paintedblack.club · Tirana, Albania</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const canvas = document.getElementById('bg-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(window.innerWidth,window.innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
+  camera.position.z = 40;
+
+  const PARTICLE_COUNT = 220;
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(PARTICLE_COUNT*3);
+  const sizes = new Float32Array(PARTICLE_COUNT);
+  const speeds = [];
+  const offsets = [];
+
+  for(let i=0;i<PARTICLE_COUNT;i++){
+    pos[i*3]   = (Math.random()-0.5)*120;
+    pos[i*3+1] = (Math.random()-0.5)*80;
+    pos[i*3+2] = (Math.random()-0.5)*60;
+    sizes[i] = Math.random() < 0.1 ? 2.5 : Math.random() < 0.3 ? 1.5 : 0.8;
+    speeds.push({x:(Math.random()-0.5)*0.004,y:(Math.random()-0.5)*0.003,z:0});
+    offsets.push(Math.random()*Math.PI*2);
+  }
+
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('size',new THREE.BufferAttribute(sizes,1));
+
+  const mat = new THREE.PointsMaterial({
+    color:0xffffff,size:0.35,sizeAttenuation:true,
+    transparent:true,opacity:0.35,
+  });
+  const particles = new THREE.Points(geo,mat);
+  scene.add(particles);
+
+  let mouseX=0,mouseY=0;
+  document.addEventListener('mousemove',e=>{
+    mouseX=(e.clientX/window.innerWidth-0.5)*0.3;
+    mouseY=(e.clientY/window.innerHeight-0.5)*0.2;
+  });
+
+  window.addEventListener('resize',()=>{
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    camera.aspect=window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+
+  let t=0;
+  function animate(){
+    requestAnimationFrame(animate);
+    t+=0.001;
+    const positions = geo.attributes.position.array;
+    for(let i=0;i<PARTICLE_COUNT;i++){
+      positions[i*3]  +=speeds[i].x + Math.sin(t+offsets[i])*0.0015;
+      positions[i*3+1]+=speeds[i].y + Math.cos(t+offsets[i]*0.7)*0.001;
+      if(positions[i*3]>60) positions[i*3]=-60;
+      if(positions[i*3]<-60) positions[i*3]=60;
+      if(positions[i*3+1]>40) positions[i*3+1]=-40;
+      if(positions[i*3+1]<-40) positions[i*3+1]=40;
+    }
+    geo.attributes.position.needsUpdate=true;
+    camera.position.x += (mouseX - camera.position.x)*0.02;
+    camera.position.y += (-mouseY - camera.position.y)*0.02;
+    camera.lookAt(scene.position);
+    renderer.render(scene,camera);
+  }
+  animate();
+})();
+
+// Progress bar
+const progressBar = document.getElementById('progress');
+window.addEventListener('scroll',()=>{
+  const scrolled = (window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100;
+  progressBar.style.width = scrolled+'%';
+});
+
+// Active nav link
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+const sectionObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(a=>a.classList.remove('active'));
+      const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+},{threshold:0.4});
+sections.forEach(s=>sectionObserver.observe(s));
+
+// Scroll reveal for cards
+const cardObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const delay = parseInt(entry.target.dataset.delay||0)*100;
+      setTimeout(()=>entry.target.classList.add('visible'), delay);
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.finding-card,.task-card').forEach(c=>cardObserver.observe(c));
+</script>
+</body>
+</html>
