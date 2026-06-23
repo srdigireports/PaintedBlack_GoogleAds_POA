@@ -1,0 +1,1 @@
+# PaintedBlack_GoogleAds_POA
